@@ -1,0 +1,2 @@
+Jeffer Marcelino: ./magic/input/jeffer.jpeg
+Kira: ./magic/input/kira.jpeg
