@@ -1,5 +1,7 @@
 import generateDiscordScreenshot from "./generateDiscordScreenshot.js";
 import fs from "fs";
+import generateDiscordVideo from "./generateVideo.js";
+import cleanOutput from "./cleanOutput.js";
 
 const parseMessages = (messagesData) => {
   const lines = messagesData.trim().split("\n");
@@ -51,17 +53,27 @@ const readAndParseFile = (filePath, parseData) => {
   }
 };
 
-const messages = readAndParseFile("./magic/input/messages.txt", parseMessages);
-const users = readAndParseFile("./magic/input/users.txt", parseUsers);
+const main = async () => {
+  const messages = readAndParseFile("./magic/input/messages.txt", parseMessages);
+  const users = readAndParseFile("./magic/input/users.txt", parseUsers);
+  
+  for(let i = 0; i < messages.length; i++) {
+    await generateDiscordScreenshot(
+      i, 
+      users[messages[i].username], 
+      messages[i].username, 
+      "Today at 2:03PM",
+      messages[i].message
+    );
+  
+    console.log(`Image with key ${i} generated!`);
+  };
+  
+  await generateDiscordVideo("./magic/output");
+  
+  await cleanOutput();
 
-for(let i = 0; i < messages.length; i++) {
-  generateDiscordScreenshot(
-    i, 
-    users[messages[i].username], 
-    messages[i].username, 
-    "Today at 2:03PM",
-    messages[i].message
-  );
-
-  console.log(`Image with key ${i} generated!`);
+  console.log("Your video is ready!!!");
 };
+
+main();

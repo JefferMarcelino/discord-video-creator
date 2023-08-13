@@ -1,2 +1,3 @@
-Jeffer Marcelino: ./magic/input/jeffer.jpeg
-Kira: ./magic/input/kira.jpeg
+Jeffer: ./magic/input/jeffer.jpeg
+Kira: ./magic/input/kira.jpg
+Calebe: ./magic/input/calebe.jpg

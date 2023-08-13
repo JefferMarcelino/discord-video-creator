@@ -55,7 +55,7 @@ const generateDiscordScreenshot = async (key, userphoto, username, date, message
 
   // Write the image to file
   const buffer = canvas.toBuffer("image/png");
-  fs.writeFileSync(`./magic/screenshots/${key}.png`, buffer);
+  fs.writeFileSync(`./magic/output/${key}.png`, buffer);
 };
 
 export default generateDiscordScreenshot;
