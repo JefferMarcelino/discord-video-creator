@@ -16,6 +16,8 @@ const generateShortVideoWithNotificationSound = async (imagesFolder, notificatio
         .input(notificationSound)
         .output(outputVideo)
         .videoCodec('libx264')
+        .outputOptions('-profile:v', 'main')
+        .outputOptions('-pix_fmt', 'yuv420p')
         .audioCodec('aac')
         .outputOptions('-r 30')
         .on('end', () => {
@@ -66,7 +68,10 @@ const concatAllVideos = async (videoPaths, outputFolder) => {
           outputs: ['concatenated_v', 'concatenated_a'],
         },
       ])
+      .videoCodec('libx264')
       .outputOptions('-map', '[concatenated_v]', '-map', '[concatenated_a]')
+      .outputOptions('-profile:v', 'main')
+      .outputOptions('-pix_fmt', 'yuv420p')
       .output(outputFileName)
       .on('end', () => {
         console.log('Concatenation finished');
@@ -80,11 +85,11 @@ const concatAllVideos = async (videoPaths, outputFolder) => {
   });
 }
 
-const generateDiscordVideo = async (workFolder) => {
+const generateVideo = async (workFolder) => {
   const NOTIFICATION_SOUND = './magic/input/notification.mp3';
 
   const videoPaths = await generateShortVideoWithNotificationSound(workFolder, NOTIFICATION_SOUND);
   await concatAllVideos(videoPaths, workFolder);
 };
 
-export default generateDiscordVideo;
+export default generateVideo;
